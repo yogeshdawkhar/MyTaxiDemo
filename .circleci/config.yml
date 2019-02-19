@@ -10,9 +10,13 @@ jobs:
       - checkout
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run:
-         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
-         command: sudo chmod +x ./gradlew
+      - run: sudo chmod +x ./gradlew
+      - run: ./gradlew androidDependencies
+      - run: cd /opt/android/sdk/tools/bin
+      - run: sdkmanager --licenses
+      - run: yes
+#         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
+#         command: sudo chmod +x ./gradlew
 #      - run:
 #        name: Download Dependencies
 #        command: ./gradlew androidDependencies
