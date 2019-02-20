@@ -28,7 +28,7 @@ jobs:
        #-n test -k "system-images;android-27;default;x86"
       - run:
           name: Launch emulator
-       command: ${ANDROID_HOME}/emulator/ -avd androidlearn -noaudio -no-boot-anim -no-window -accel auto -verbose                       
+       command: /opt/android/sdk/emulator/ -avd androidlearn -noaudio -no-boot-anim -no-window -accel auto -verbose                       
       #    command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd androidlearn -noaudio -no-boot-anim -no-window -accel auto -verbose                    
           
       - run:
