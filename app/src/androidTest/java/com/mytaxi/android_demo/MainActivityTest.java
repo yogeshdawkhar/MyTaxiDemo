@@ -34,8 +34,14 @@ import static org.hamcrest.Matchers.not;
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
-    public static final String USER_NAME = "crazydog335";
-    public static final String PASSWORD = "venture";
+    private static final String USER_NAME;// = "crazydog335";
+    private static final String PASSWORD;
+
+    static {
+        PASSWORD = "venture";
+        USER_NAME = "crazydog335";
+    }
+
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
     @Rule
