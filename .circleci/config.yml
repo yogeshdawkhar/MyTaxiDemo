@@ -15,6 +15,7 @@ jobs:
           command: |
                   sudo chmod +x gradlew
                   ./gradlew androidDependencies
+                  sdkmanager --update
       - save_cache:
           paths:
             - ~/.gradle
