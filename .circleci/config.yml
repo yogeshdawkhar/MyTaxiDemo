@@ -16,6 +16,7 @@ jobs:
                   sudo chmod +x gradlew
                   ./gradlew androidDependencies
                   sdkmanager --update
+                  sudo apt-get install libqt5widgets5
       - save_cache:
           paths:
             - ~/.gradle
