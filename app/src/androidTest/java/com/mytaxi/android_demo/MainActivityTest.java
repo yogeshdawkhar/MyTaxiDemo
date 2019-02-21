@@ -6,14 +6,11 @@ import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.rule.GrantPermissionRule;
 import android.support.test.runner.AndroidJUnit4;
-
 import com.mytaxi.android_demo.activities.MainActivity;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -24,6 +21,13 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
+import retrofit2.Call;
+import retrofit2.Response;
+import com.mytaxi.android_demo.rest.ApiClient;
+import com.mytaxi.android_demo.rest.ApiInterface;
+import com.mytaxi.android_demo.models.MultipleResource;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -34,13 +38,9 @@ import static org.hamcrest.Matchers.not;
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
-    private static final String USER_NAME;// = "crazydog335";
-    private static final String PASSWORD;
+    private static  String USER_NAME;
+    private static  String PASSWORD;
 
-    static {
-        PASSWORD = "venture";
-        USER_NAME = "crazydog335";
-    }
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
@@ -53,6 +53,7 @@ public class MainActivityTest {
     @Before
     public void setActivity() {
         mActivity = mActivityTestRule.getActivity();
+        getLoginCredentials();
     }
 
     @Test
@@ -86,4 +87,23 @@ public class MainActivityTest {
             e.printStackTrace();
         }
     }
+
+    private void getLoginCredentials() {
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+        Call<MultipleResource> call = apiInterface.doGetListResources();
+
+
+        Response<MultipleResource> response = null;
+        try {
+            response = call.execute();
+        MultipleResource resource = response.body();
+            List<MultipleResource.Driver> datumList = resource.results;
+            USER_NAME =  datumList.get(0).login.username;
+            PASSWORD =  datumList.get(0).login.password;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
