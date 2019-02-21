@@ -24,10 +24,10 @@ jobs:
           command: ./gradlew lint test
       - run:
           name: Setup emulator
-          command: yes | sdkmanager --licenses  || true | sdkmanager "system-images;android-27;google_apis;x86" && echo "no" | avdmanager create avd -n androidlearn -k "system-images;android-27;google_apis;x86" -c 1024M -g google_apis | emulator -list-avds
+          command: yes | sdkmanager --licenses  || true | sdkmanager "system-images;android-27;google_apis;x86_64" && echo "no" | avdmanager create avd -n androidlearn -k "system-images;android-27;google_apis;x86_64" -c 1024M -g google_apis | emulator -list-avds
       - run:
           name: Launch emulator
-          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib:${ANDROID_HOME}/emulator/lib/qt/lib && emulator -avd androidlearn -noaudio -no-boot-anim -no-window -accel auto -verbose                    
+          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator -avd androidlearn -noaudio -no-boot-anim -no-window -accel auto -verbose                    
       - run:
           name: Wait emulator
           command: |
