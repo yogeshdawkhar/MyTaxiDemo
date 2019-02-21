@@ -27,7 +27,7 @@ jobs:
           command: yes | sdkmanager --licenses  || true | sdkmanager "system-images;android-27;default;x86" && echo "no" | avdmanager create avd -n mytaxi -k "system-images;android-27;default;x86" -c 1024M -g default
       - run:
           name: Launch emulator
-          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib | sudo apt-get install pulseaudio | emulator -avd mytaxi -noaudio -no-boot-anim -no-window -accel auto -verbose                    
+          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib | emulator -avd mytaxi -noaudio -no-boot-anim -no-window -accel auto -verbose                    
       - run:
           name: Wait emulator
           command: |
